@@ -39,6 +39,8 @@ class RegistrationFormsController < ApplicationController
     @registration_form.submitted = true
     respond_to do |format|
       if @registration_form.update(registration_form_params)
+        # with a little more time I would move this to a service object
+        create_student(@registration_form)
         format.html { redirect_to submitted_registration_forms_path, notice: "Registration form was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -71,5 +73,13 @@ class RegistrationFormsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def registration_form_params
       params.require(:registration_form).permit(:first_name, :last_name, :email, :date_of_birth)
+    end
+
+    def create_student(form)
+      student = Student.where(email: form.email).first_or_initialize
+      student.first_name = form.first_name
+      student.last_name = form.last_name
+      student.date_of_birth = form.date_of_birth
+      student.save
     end
 end
