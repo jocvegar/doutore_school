@@ -1,9 +1,10 @@
 class RegistrationFormsController < ApplicationController
+  include Pagy::Backend
   before_action :authenticate_user!, except: %i[ edit update submitted not_found ]
   before_action :set_registration_form, only: %i[ edit update ]
 
   def index
-    @registration_forms = RegistrationForm.where(submitted: true).order(updated_at: :desc)
+    @pagy, @registration_forms = pagy(RegistrationForm.where(submitted: true).order(updated_at: :desc))
   end
 
   def show; end
