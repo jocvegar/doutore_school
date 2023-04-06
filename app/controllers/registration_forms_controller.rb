@@ -39,14 +39,7 @@ class RegistrationFormsController < ApplicationController
     end
   end
 
-  def destroy
-    @registration_form.destroy
-
-    respond_to do |format|
-      format.html { redirect_to registration_forms_url, notice: "Registration form was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  def destroy; end
 
   def submitted; end
 
