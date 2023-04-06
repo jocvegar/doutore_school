@@ -4,6 +4,10 @@ class RegistrationForm < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email, :date_of_birth, :on => :update
 
+	def edit_link
+    Rails.application.routes.url_helpers.edit_registration_form_path(id: self.slug)
+  end
+
   private
 
   def slug_it

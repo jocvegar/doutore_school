@@ -1,14 +1,33 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Registration forms</h1>
-
-<div id="registration_forms">
-  <% @registration_forms.each do |registration_form| %>
-    <%= render registration_form %>
-    <p>
-      <%= link_to "Show this registration form", registration_form %>
-    </p>
-  <% end %>
+<div class="container">
+  <h3 class=text-center>
+    Registration Form
+  </h3>
+  <%= link_to "Generate new form", registration_forms_path,
+      class: "btn btn-primary float-end", data: { 'turbo-method' => :post } %>
+  <br>
+  <br>
+  <%= turbo_frame_tag "generated_link" %>
+  <hr class="mb-5">
+  <div class="row">
+    <div class="col-12">
+      <div id="registration_forms">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Email</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Date Submitted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @registration_forms.each_with_index do |registration_form, idx| %>
+              <%= render registration_form, idx: idx %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New registration form", new_registration_form_path %>

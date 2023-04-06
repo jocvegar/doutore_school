@@ -1,0 +1,2 @@
+<% form = RegistrationForm.last %>
+<%= turbo_stream.replace "generated_link", partial: "registration_forms/generated_link", locals: {form: form } %>

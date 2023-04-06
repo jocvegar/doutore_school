@@ -1,9 +1,10 @@
 class RegistrationFormsController < ApplicationController
-  before_action :set_registration_form, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: %i[ edit update submitted not_found ]
+  before_action :set_registration_form, only: %i[ edit update ]
 
   # GET /registration_forms or /registration_forms.json
   def index
-    @registration_forms = RegistrationForm.all
+    @registration_forms = RegistrationForm.where(submitted: true).order(updated_at: :desc)
   end
 
   # GET /registration_forms/1 or /registration_forms/1.json
@@ -21,15 +22,14 @@ class RegistrationFormsController < ApplicationController
 
   # POST /registration_forms or /registration_forms.json
   def create
-    @registration_form = RegistrationForm.new(registration_form_params)
+    @registration_form = RegistrationForm.new
 
     respond_to do |format|
       if @registration_form.save
         format.html { redirect_to registration_form_url(@registration_form), notice: "Registration form was successfully created." }
-        format.json { render :show, status: :created, location: @registration_form }
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @registration_form.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@ class RegistrationFormsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_registration_form
-      @registration_form = RegistrationForm.find(params[:id])
+      @registration_form = RegistrationForm.find_by(slug: params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def registration_form_params
-      params.require(:registration_form).permit(:first_name, :last_name, :email, :date_of_birth, :submitted, :slug)
+      params.require(:registration_form).permit(:first_name, :last_name, :email, :date_of_birth)
     end
 end
