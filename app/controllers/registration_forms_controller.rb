@@ -36,13 +36,12 @@ class RegistrationFormsController < ApplicationController
 
   # PATCH/PUT /registration_forms/1 or /registration_forms/1.json
   def update
+    @registration_form.submitted = true
     respond_to do |format|
       if @registration_form.update(registration_form_params)
-        format.html { redirect_to registration_form_url(@registration_form), notice: "Registration form was successfully updated." }
-        format.json { render :show, status: :ok, location: @registration_form }
+        format.html { redirect_to submitted_registration_forms_path, notice: "Registration form was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @registration_form.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -61,6 +60,12 @@ class RegistrationFormsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_registration_form
       @registration_form = RegistrationForm.find_by(slug: params[:id])
+
+      if @registration_form.nil?
+        redirect_to not_found_registration_forms_path
+      elsif @registration_form.submitted == true
+        redirect_to submitted_registration_forms_path
+      end
     end
 
     # Only allow a list of trusted parameters through.

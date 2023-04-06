@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :registration_forms
-  devise_for :users
   root 'forms#index'
+  devise_for :users
+  resources :registration_forms do
+    collection { get 'submitted' }
+		collection { get 'not_found' }
+  end
 end

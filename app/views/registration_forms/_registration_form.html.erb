@@ -3,5 +3,5 @@
   <th scope="row"><%= registration_form.email %></th>
   <th scope="row"><%= registration_form.first_name || "-" %></th>
   <th scope="row"><%= registration_form.last_name || "-" %></th>
-  <th scope="row"><%= registration_form.updated_at %></th>
+  <th scope="row"><%= registration_form.updated_at.strftime("%b %d, %Y") %></th>
 </div>
