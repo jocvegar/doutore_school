@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @registration_form %>
+
+<div>
+  <%= link_to "Edit this registration form", edit_registration_form_path(@registration_form) %> |
+  <%= link_to "Back to registration forms", registration_forms_path %>
+
+  <%= button_to "Destroy this registration form", @registration_form, method: :delete %>
+</div>

@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Registration forms</h1>
+
+<div id="registration_forms">
+  <% @registration_forms.each do |registration_form| %>
+    <%= render registration_form %>
+    <p>
+      <%= link_to "Show this registration form", registration_form %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New registration form", new_registration_form_path %>
