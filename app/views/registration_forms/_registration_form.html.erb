@@ -1,32 +1,7 @@
-<div id="<%= dom_id registration_form %>">
-  <p>
-    <strong>First name:</strong>
-    <%= registration_form.first_name %>
-  </p>
-
-  <p>
-    <strong>Last name:</strong>
-    <%= registration_form.last_name %>
-  </p>
-
-  <p>
-    <strong>Email:</strong>
-    <%= registration_form.email %>
-  </p>
-
-  <p>
-    <strong>Date of birth:</strong>
-    <%= registration_form.date_of_birth %>
-  </p>
-
-  <p>
-    <strong>Submitted:</strong>
-    <%= registration_form.submitted %>
-  </p>
-
-  <p>
-    <strong>Slug:</strong>
-    <%= registration_form.slug %>
-  </p>
-
+<tr id="<%= dom_id registration_form %>">
+  <th scope="row"><%= idx + 1 %></th>
+  <th scope="row"><%= registration_form.email %></th>
+  <th scope="row"><%= registration_form.first_name || "-" %></th>
+  <th scope="row"><%= registration_form.last_name || "-" %></th>
+  <th scope="row"><%= registration_form.updated_at %></th>
 </div>
