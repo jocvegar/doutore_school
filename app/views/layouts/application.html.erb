@@ -9,8 +9,14 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <%= content_tag :div, class: "alert alert-info", role: "alert" do %>
+      <%= notice %>
+    <% end if notice %>
+    <%= content_tag :div, class: "alert alert-primary", role: "alert" do %>
+      <%= alert %>
+    <% end if alert %>
+    <div class="pt-5">
+      <%= yield %>
+    </div>
   </body>
 </html>
